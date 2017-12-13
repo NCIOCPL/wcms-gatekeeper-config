@@ -1,4 +1,4 @@
-The connectionStrings.config file contains the database connection strings used by
+The connectionStrings.config file contains the database connection strings used by
 all GateKeeper applications.  The individual applications reference the file via
 a configSource attribute on the connectionStrings section of their respective
 configuration files.
