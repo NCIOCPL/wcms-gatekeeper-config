@@ -1,0 +1,5 @@
+# Explicitly declare use of CR/LF.
+*.xml text eol=crlf
+*.config text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
