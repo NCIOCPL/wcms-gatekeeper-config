@@ -1,6 +1,6 @@
 <#
 	.SYNOPSIS
-	Simple text substitution tool.
+	Simple text substitution tool.  See https://github.com/blairlearn/text-substitution-tool for original.
 
 	.DESCRIPTION
 	Reads a text file and performs a series of text substitutions to create a new file.
@@ -40,12 +40,23 @@ Param(
 	[string]$SubstituteList
 )
 
+if (-not (Test-Path $InputFile)) {
+	Write-Error "InputFile, $InputFile, does not exist"
+	exit
+}
+
+if (-not (Test-Path $SubstituteList)) {
+	Write-Error "SubstituteList, $SubstituteList, does not exist"
+	exit
+}
+
+
 [xml]$substitutions = Get-Content $SubstituteList
 [string]$data = Get-Content -Raw $InputFile
 
 foreach($substitute in $substitutions.substitutions.substitute) {
 
-	$find = "{$($substitute.find)}"
+	$find = "`${$($substitute.find)}"
 	$replacement = $substitute.replacement
 	if($replacement.GetType() -eq [System.Xml.XmlElement] ) {
 		if($replacement.FirstChild -ne $null -and $replacement.FirstChild.GetType() -eq [System.Xml.XmlCDataSection]) {
@@ -56,6 +67,7 @@ foreach($substitute in $substitutions.substitutions.substitute) {
 		}
 	}
 
+	Write-Debug "Replacing $find"
 	$data = $data.Replace($find, $replacement)
 }
 
