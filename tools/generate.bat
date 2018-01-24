@@ -41,10 +41,12 @@ powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile GateK
 REM database connections
 for %%a in (Admin CDRPreviewWS WebSvc ProcMgr) do (
     echo Generating '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config'
+    mkdir "%GATEKEEPER_ROOT%\App\%%a\sharedconfig\"
     powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
 for %%a in (UnitTest PromotionTester) do (
     echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config'
+    mkdir "%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\"
     powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
 
