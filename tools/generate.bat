@@ -17,7 +17,6 @@ if "%GATEKEEPER_SUBST%" == "" (
 
 REM Make config root the current directory.
 pushd %~dp0 && cd ..
-echo %cd%
 
 REM GateKeeper apps
 for %%a in (Admin CDRPreviewWS WebSvc) do (
@@ -35,13 +34,17 @@ for %%a in (PromotionTester ImportTool ProcessTester PubPreviewTest) do (
 echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config'
 powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile UnitTest\UnitTest.dll.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config' -SubstituteList '%GATEKEEPER_SUBST%'
 
+REM GateKeeperTest config
+echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\GateKeeperTest\GateKeeperTest.exe.config'
+powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile GateKeeperTest\GateKeeperTest.exe.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\GateKeeperTest\GateKeeperTest.exe.config' -SubstituteList '%GATEKEEPER_SUBST%'
+
 REM database connections
 for %%a in (Admin CDRPreviewWS WebSvc ProcMgr) do (
     echo Generating '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config'
     powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
 for %%a in (UnitTest PromotionTester) do (
-    echo Generating '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config'
+    echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config'
     powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
 
