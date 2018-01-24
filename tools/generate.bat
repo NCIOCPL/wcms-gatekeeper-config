@@ -28,14 +28,12 @@ echo Generating '%GATEKEEPER_ROOT%\App\ProcMgr\App.config'
 powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile ProcMgr\App.config -OutputFile '%GATEKEEPER_ROOT%\App\ProcMgr\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
 
 REM Test harnesses.
-echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\PromotionTester\App.config'
-powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile PromotionTester\App.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\PromotionTester\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
-
+for %%a in (PromotionTester ImportTool ProcessTester) do (
+    echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config'
+    powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile %%a\App.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
+)
 echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config'
 powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile UnitTest\UnitTest.dll.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config' -SubstituteList '%GATEKEEPER_SUBST%'
-
-echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\ImportTool\App.config'
-powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile ImportTool\App.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\ImportTool\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
 
 
 
