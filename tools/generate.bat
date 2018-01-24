@@ -28,7 +28,7 @@ echo Generating '%GATEKEEPER_ROOT%\App\ProcMgr\App.config'
 powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile ProcMgr\App.config -OutputFile '%GATEKEEPER_ROOT%\App\ProcMgr\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
 
 REM Test harnesses.
-for %%a in (PromotionTester ImportTool ProcessTester) do (
+for %%a in (PromotionTester ImportTool ProcessTester PubPreviewTest) do (
     echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config'
     powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile %%a\App.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
