@@ -34,6 +34,10 @@ powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile Promo
 echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config'
 powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile UnitTest\UnitTest.dll.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config' -SubstituteList '%GATEKEEPER_SUBST%'
 
+echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\ImportTool\App.config'
+powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile ImportTool\App.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\ImportTool\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
+
+
 
 REM Return to original directory.
 popd
