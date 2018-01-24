@@ -35,6 +35,15 @@ for %%a in (PromotionTester ImportTool ProcessTester PubPreviewTest) do (
 echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config'
 powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile UnitTest\UnitTest.dll.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config' -SubstituteList '%GATEKEEPER_SUBST%'
 
+REM database connections
+for %%a in (Admin CDRPreviewWS WebSvc ProcMgr) do (
+    echo Generating '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config'
+    powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
+)
+for %%a in (UnitTest PromotionTester) do (
+    echo Generating '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config'
+    powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
+)
 
 
 REM Return to original directory.
