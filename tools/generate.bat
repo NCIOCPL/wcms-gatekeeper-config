@@ -63,14 +63,14 @@ IF '%DEPLOY_ONLY%' == 'false' (
 
     REM database connections
     for %%a in (Admin CDRPreviewWS WebSvc ProcMgr) do (
-        echo Generating '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config'
-        mkdir "%GATEKEEPER_ROOT%\App\%%a\sharedconfig\" 2> nul
-        powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
+        echo Generating '%GATEKEEPER_ROOT%\App\%%a\connectionStrings.config'
+        mkdir "%GATEKEEPER_ROOT%\App\%%a\" 2> nul
+        powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
     )
     for %%a in (UnitTest PromotionTester) do (
-        echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config'
-        mkdir "%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\" 2> nul
-        powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\sharedconfig\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
+        echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\connectionStrings.config'
+        mkdir "%GATEKEEPER_ROOT%\Test Harnesses\%%a\" 2> nul
+        powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile sharedconfig\connectionStrings.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\connectionStrings.config' -SubstituteList '%GATEKEEPER_SUBST%'
     )
 )
 
