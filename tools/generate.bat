@@ -31,7 +31,7 @@ powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile ProcM
 REM Test harnesses.
 for %%a in (PromotionTester ImportTool ProcessTester PubPreviewTest) do (
     echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config'
-    mkdir "%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config" 2> nul
+    mkdir "%GATEKEEPER_ROOT%\Test Harnesses\%%a" 2> nul
     powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile %%a\App.config -OutputFile '%GATEKEEPER_ROOT%\Test Harnesses\%%a\App.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
 echo Generating '%GATEKEEPER_ROOT%\Test Harnesses\UnitTest\UnitTest.dll.config'
