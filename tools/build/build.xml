@@ -1,0 +1,36 @@
+<Project ToolsVersion="12.0" DefaultTargets="Transform" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <UsingTask TaskName="TransformXml"
+             AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(MSBuildAssemblyVersion)\Web\Microsoft.Web.Publishing.Tasks.dll"/>
+
+	<PropertyGroup>
+		<OutputRoot>$(WORKSPACE)\output\$(ENVIRONMENT)</OutputRoot>
+	</PropertyGroup>
+			 
+    <Target Name="Transform" DependsOnTargets="ValidateProps">
+	
+		<MakeDir Directories="$(OUTPUTROOT)\Admin" />
+        <TransformXml Source="$(WORKSPACE)\Admin\web.config"
+                      Transform="$(WORKSPACE)\Admin\web.prod.config"
+                      Destination="$(OUTPUTROOT)\Admin\web.config"/>
+
+		<MakeDir Directories="$(OUTPUTROOT)\CDRPreviewWS" />
+        <TransformXml Source="$(WORKSPACE)\CDRPreviewWS\web.config"
+                      Transform="$(WORKSPACE)\CDRPreviewWS\web.prod.config"
+                      Destination="$(OUTPUTROOT)\CDRPreviewWS\web.config"/>
+
+		<MakeDir Directories="$(OUTPUTROOT)\WebSvc" />
+        <TransformXml Source="$(WORKSPACE)\WebSvc\web.config"
+                      Transform="$(WORKSPACE)\WebSvc\web.prod.config"
+                      Destination="$(OUTPUTROOT)\WebSvc\web.config"/>
+
+		<MakeDir Directories="$(OUTPUTROOT)\ProcMgr" />
+        <TransformXml Source="$(WORKSPACE)\ProcMgr\app.config"
+                      Transform="$(WORKSPACE)\ProcMgr\app.prod.config"
+                      Destination="$(OUTPUTROOT)\ProcMgr\processmanager.exe.config"/>
+	</Target>
+	
+	<Target Name="ValidateProps">
+		<Error Condition=" '$(WORKSPACE)'=='' "
+			Text="Missing required property [WORKSPACE]" />
+	</Target>
+</Project>
