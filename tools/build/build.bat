@@ -13,9 +13,23 @@ REM of the configuration file project.
 pushd %~dp0 && cd ..\..
 set WORKSPACE=%cd%
 
+REM output location
+if '%1' == '' GOTO HELP
+SET OUTPUT_LOCATION=%1
+
 REM As transforms are added for additional environments, add the environment
 REM name to the list in this loop. Note that the environment name must match
 REM the configuration name in the transform file name.
 for %%a in ( prod ) do (
-	msbuild /filelogger "/p:Environment=%%a" %SCRIPT_DIR%build.xml
+	msbuild /filelogger "/p:Environment=%%a;Output_Dir=%OUTPUT_LOCATION%" %SCRIPT_DIR%build.xml
 )
+
+
+GOTO :EOF
+:HELP
+echo.
+echo. Usage:
+echo.	build ^<output_location^>
+echo.
+echo. 	output_location - the location where the configuration files should be placed.
+echo.
