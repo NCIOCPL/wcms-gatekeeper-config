@@ -39,10 +39,12 @@ for %%a in ( prod ) do (
 	REM web.config files.
 	for %%b in (Admin CDRPreviewWS WebSvc) do (
 		echo Generating '%OUTPUT_LOCATION%\%%a\%%b\Web.config'
+		mkdir "%OUTPUT_LOCATION%\%%a\%%b\" 2> nul
 		powershell -ExecutionPolicy Unrestricted %SCRIPT_DIR%scripts\substitution.ps1 -InputFile %TEMP_PATH%\%%a\%%b\Web.config -OutputFile '%OUTPUT_LOCATION%\%%a\%%b\Web.config' -SubstituteList '%SUBSTITUTION_LIST%'
 	)
 	REM Process Manager configuration
 	echo Generating '%OUTPUT_LOCATION%\%%a\ProcMgr\processmanager.exe.config'
+	mkdir "%OUTPUT_LOCATION%\%%a\ProcMgr\" 2> nul
 	powershell -ExecutionPolicy Unrestricted %SCRIPT_DIR%scripts\substitution.ps1 -InputFile %TEMP_PATH%\%%a\ProcMgr\processmanager.exe.config -OutputFile '%OUTPUT_LOCATION%\%%a\ProcMgr\processmanager.exe.config' -SubstituteList '%SUBSTITUTION_LIST%'
 )
 
