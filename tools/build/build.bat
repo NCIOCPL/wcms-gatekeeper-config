@@ -17,19 +17,45 @@ REM output location
 if '%1' == '' GOTO HELP
 SET OUTPUT_LOCATION=%1
 
+REM text substitution file
+if '%2' == '' GOTO HELP
+set  SUBSTITUTION_LIST=%2
+
+REM Create a temporary path variable, with a timestamp.
+REM set the value in TEMP_PATH.
+for /f "delims=: tokens=1-3" %%i in ("%time%") do @set TEMP_PATH=%temp%\%%i-%%j-%%k
+
+
 REM As transforms are added for additional environments, add the environment
 REM name to the list in this loop. Note that the environment name must match
 REM the configuration name in the transform file name.
 for %%a in ( prod ) do (
-	msbuild /filelogger "/p:Environment=%%a;Output_Dir=%OUTPUT_LOCATION%" %SCRIPT_DIR%build.xml
+	msbuild /filelogger "/p:Environment=%%a;Output_Dir=%TEMP_PATH%" %SCRIPT_DIR%build.xml
 )
 
+REM Run the transformed files through the text substitution tool to produce the
+REM final, deployment ready version of the files.
+for %%a in ( prod ) do (
+	REM web.config files.
+	for %%b in (Admin CDRPreviewWS WebSvc) do (
+		echo Generating '%OUTPUT_LOCATION%\%%a\%%b\Web.config'
+		powershell -ExecutionPolicy Unrestricted %SCRIPT_DIR%scripts\substitution.ps1 -InputFile %TEMP_PATH%\%%a\%%b\Web.config -OutputFile '%OUTPUT_LOCATION%\%%a\%%b\Web.config' -SubstituteList '%SUBSTITUTION_LIST%'
+	)
+	REM Process Manager configuration
+	echo Generating '%OUTPUT_LOCATION%\%%a\ProcMgr\processmanager.exe.config'
+	powershell -ExecutionPolicy Unrestricted %SCRIPT_DIR%scripts\substitution.ps1 -InputFile %TEMP_PATH%\%%a\ProcMgr\processmanager.exe.config -OutputFile '%OUTPUT_LOCATION%\%%a\ProcMgr\processmanager.exe.config' -SubstituteList '%SUBSTITUTION_LIST%'
+)
+
+REM Clean up
+rd /s/q %TEMP_PATH%
 
 GOTO :EOF
 :HELP
 echo.
 echo. Usage:
-echo.	build ^<output_location^>
+echo.	build ^<output_location^> ^<substitution_list^>
 echo.
 echo. 	output_location - the location where the configuration files should be placed.
+echo.
+echo. 	substitution_list - path to the placeholder substitution file.
 echo.

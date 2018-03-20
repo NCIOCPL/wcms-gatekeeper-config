@@ -7,7 +7,7 @@
 	</PropertyGroup>
 			 
     <Target Name="Transform" DependsOnTargets="ValidateProps">
-	
+
 		<MakeDir Directories="$(OUTPUTROOT)\Admin" />
         <TransformXml Source="$(WORKSPACE)\Admin\web.config"
                       Transform="$(WORKSPACE)\Admin\web.prod.config"

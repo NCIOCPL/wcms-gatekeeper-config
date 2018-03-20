@@ -29,7 +29,7 @@ REM GateKeeper apps
 for %%a in (Admin CDRPreviewWS WebSvc) do (
     echo Generating '%GATEKEEPER_ROOT%\App\%%a\Web.config'
     mkdir "%GATEKEEPER_ROOT%\App\%%a" 2> nul
-    powershell -ExecutionPolicy Unrestricted tools/substitution.ps1 -InputFile %%a\Web.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\Web.config' -SubstituteList '%GATEKEEPER_SUBST%'
+    powershell -ExecutionPolicy Unrestricted tools/build/scripts/substitution.ps1 -InputFile %%a\Web.config -OutputFile '%GATEKEEPER_ROOT%\App\%%a\Web.config' -SubstituteList '%GATEKEEPER_SUBST%'
 )
 
 REM The Process Manager config has a different name for development vs. deployment.
