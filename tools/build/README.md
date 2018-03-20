@@ -12,9 +12,8 @@ Usage:
 
 where:
 
-    `output_location` is the location where the configuration files should be placed.
-
-    `substitution_list` is the path to the placeholder substitution file.
+* `output_location` is the location where the configuration files should be placed.
+* `substitution_list` is the path to the placeholder substitution file.
 
 ## build4dev.bat
 
@@ -28,10 +27,9 @@ Usage:
 
 where:
 
-    `output_location` is the base directory where the configuration files should be placed.
+* `output_location` is the base directory where the configuration files should be placed.
                       (e.g. The base of the GateKeeper source tree.)
+* `substitution_list` is the path to the placeholder substitution file.
 
-    `substitution_list` is the path to the placeholder substitution file.
-
- 	--deploy-only (optional) - if specified, only the files which are included in
+* --deploy-only (optional) - if specified, only the files which are included in
                               a deployment are generated.
