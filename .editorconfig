@@ -3,7 +3,7 @@
 # This is the top of the directory tree
 root = true
 
-[*]
+[*.{config,xml,bat}]
 trim_trailing_whitespace = true
 end_of_line = crlf
 indent_style = space
