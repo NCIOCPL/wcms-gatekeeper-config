@@ -1,3 +1,8 @@
+> [!WARNING]
+> This repository has been archived and is no longer maintained.  
+> The code is provided for historical reference and may contain unpatched or unknown vulnerabilities.  
+> It should not be used in production systems.  
+
 # GateKeeper Configuration Files
 
 The repository contains skeleton configuration files for the [wcms-gatekeeper](https://github.com/NCIOCPL/wcms-gatekeeper) project.
